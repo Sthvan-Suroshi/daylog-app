@@ -1,7 +1,7 @@
 import { HapticTab } from "@/components/haptic-tab";
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { AntDesign, Entypo, Feather, Fontisto } from "@expo/vector-icons";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
@@ -29,7 +29,7 @@ function PlusButton() {
           styles.plusButtonInner,
         ]}
       >
-        <IconSymbol size={24} name="plus" color="white" />
+        <Fontisto size={24} name="plus-a" color="white" />
       </Pressable>
     </Card>
   );
@@ -59,7 +59,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <AntDesign size={28} name="home" color={color} />
           ),
         }}
       />
@@ -69,7 +69,7 @@ export default function TabLayout() {
         options={{
           title: "Entries",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="book.fill" color={color} />
+            <Entypo size={28} name="open-book" color={color} />
           ),
         }}
       />
@@ -89,7 +89,7 @@ export default function TabLayout() {
         options={{
           title: "AI Chat",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="heart.fill" color={color} />
+            <Fontisto size={28} name="hipchat" color={color} />
           ),
         }}
       />
@@ -99,7 +99,7 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.fill" color={color} />
+            <Feather size={28} name="user" color={color} />
           ),
         }}
       />

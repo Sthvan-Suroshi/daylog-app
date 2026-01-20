@@ -1,9 +1,9 @@
 import { SignOutButton } from "@/components/SignOutButton";
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { AppColors } from "@/constants/theme";
 import { useStreaks } from "@/hooks/use-streaks";
 import { getUserDisplayName, getUserInitials } from "@/lib/utils/user";
 import { Protect, useUser } from "@clerk/clerk-expo";
+import { Entypo, FontAwesome6 } from "@expo/vector-icons";
 import { Image, Linking, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -130,9 +130,9 @@ export default function Profile() {
             >
               <YStack gap="$3" style={{ alignItems: "center" }}>
                 <View style={styles.streakIconContainer}>
-                  <IconSymbol
+                  <FontAwesome6
                     size={24}
-                    name="flame.fill"
+                    name="fire-flame-curved"
                     color={AppColors.flameOrange}
                   />
                 </View>
@@ -157,11 +157,7 @@ export default function Profile() {
             >
               <YStack gap="$3" style={{ alignItems: "center" }}>
                 <View style={styles.bestStreakIconContainer}>
-                  <IconSymbol
-                    size={24}
-                    name="trophy.fill"
-                    color={AppColors.primary}
-                  />
+                  <Entypo size={24} name="trophy" color={AppColors.primary} />
                 </View>
                 <Text fontSize={36} fontWeight="800" color="$color12">
                   {longestStreak}
@@ -174,7 +170,7 @@ export default function Profile() {
           </XStack>
 
           {/* Subscription Card */}
-          <Card
+          {/* <Card
             elevate
             size="$4"
             bordered
@@ -204,7 +200,7 @@ export default function Profile() {
                 View Plans & Pricing
               </Button>
             </YStack>
-          </Card>
+          </Card> */}
 
           {/* Account Section */}
           <Card

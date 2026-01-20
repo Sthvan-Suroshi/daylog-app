@@ -57,7 +57,7 @@ export default function AIChatScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <Protect
+      {/* <Protect
         plan="pro"
         fallback={
           <View style={styles.content}>
@@ -170,214 +170,209 @@ export default function AIChatScreen() {
             </YStack>
           </View>
         }
+      > */}
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoid}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={0}
       >
-        <KeyboardAvoidingView
-          style={styles.keyboardAvoid}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={0}
-        >
-          <View style={styles.content}>
-            <ScrollView
-              ref={scrollViewRef}
-              style={styles.messagesContainer}
-              contentContainerStyle={styles.messagesContent}
-              showsVerticalScrollIndicator={false}
-              onContentSizeChange={() =>
-                scrollViewRef.current?.scrollToEnd({ animated: true })
-              }
-            >
-              {messages.length === 0 ? (
-                <YStack gap="$4" style={{ alignItems: "center" }} mt="$12">
-                  <View style={styles.avatarContainer}>
-                    <View style={styles.avatar}>
-                      <MaterialIcons name="smart-toy" size={40} color="#666" />
-                    </View>
+        <View style={styles.content}>
+          <ScrollView
+            ref={scrollViewRef}
+            style={styles.messagesContainer}
+            contentContainerStyle={styles.messagesContent}
+            showsVerticalScrollIndicator={false}
+            onContentSizeChange={() =>
+              scrollViewRef.current?.scrollToEnd({ animated: true })
+            }
+          >
+            {messages.length === 0 ? (
+              <YStack gap="$4" style={{ alignItems: "center" }} mt="$12">
+                <View style={styles.avatarContainer}>
+                  <View style={styles.avatar}>
+                    <MaterialIcons name="smart-toy" size={40} color="#666" />
                   </View>
-                  <Text
-                    fontSize="$6"
-                    fontWeight="600"
-                    color="$color11"
-                    style={{ textAlign: "center" }}
-                  >
-                    Start a conversation
-                  </Text>
-                  <Text
-                    fontSize="$4"
-                    color="$color9"
-                    style={{ textAlign: "center", lineHeight: 22 }}
-                    px="$6"
-                  >
-                    Ask me about journaling tips, mood tracking, or just chat
-                    about your day
-                  </Text>
-                </YStack>
-              ) : (
-                messages.map((m) => (
+                </View>
+                <Text
+                  fontSize="$6"
+                  fontWeight="600"
+                  color="$color11"
+                  style={{ textAlign: "center" }}
+                >
+                  Start a conversation
+                </Text>
+                <Text
+                  fontSize="$4"
+                  color="$color9"
+                  style={{ textAlign: "center", lineHeight: 22 }}
+                  px="$6"
+                >
+                  Ask me about journaling tips, mood tracking, or just chat
+                  about your day
+                </Text>
+              </YStack>
+            ) : (
+              messages.map((m) => (
+                <View
+                  key={m.id}
+                  style={[
+                    styles.messageContainer,
+                    m.role === "user"
+                      ? styles.userMessage
+                      : styles.assistantMessage,
+                  ]}
+                >
+                  {m.role === "assistant" && (
+                    <View style={styles.messageAvatar}>
+                      <MaterialIcons name="smart-toy" size={20} color="#666" />
+                    </View>
+                  )}
                   <View
-                    key={m.id}
                     style={[
-                      styles.messageContainer,
+                      styles.messageBubble,
                       m.role === "user"
-                        ? styles.userMessage
-                        : styles.assistantMessage,
+                        ? styles.userBubble
+                        : styles.assistantBubble,
                     ]}
                   >
-                    {m.role === "assistant" && (
-                      <View style={styles.messageAvatar}>
-                        <MaterialIcons
-                          name="smart-toy"
-                          size={20}
-                          color="#666"
-                        />
-                      </View>
-                    )}
-                    <View
-                      style={[
-                        styles.messageBubble,
-                        m.role === "user"
-                          ? styles.userBubble
-                          : styles.assistantBubble,
-                      ]}
-                    >
-                      {m.parts.map((part, i) => {
-                        switch (part.type) {
-                          case "text":
-                            return (
-                              <Markdown
-                                key={`${m.id}-${i}`}
-                                style={{
-                                  body: {
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                    fontSize: 16,
-                                    lineHeight: 22,
-                                  },
-                                  paragraph: {
-                                    marginTop: 0,
-                                    marginBottom: 0,
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                  },
-                                  strong: {
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                    fontWeight: "bold",
-                                  },
-                                  em: {
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                    fontStyle: "italic",
-                                  },
-                                  link: {
-                                    color:
-                                      m.role === "user" ? "#cfe2ff" : "#904BFF",
-                                  },
-                                  bullet_list: {
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                  },
-                                  ordered_list: {
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                  },
-                                  list_item: {
-                                    color:
-                                      m.role === "user" ? "white" : "#1f2937",
-                                  },
-                                }}
-                              >
-                                {part.text}
-                              </Markdown>
-                            );
-                          case "tool-getAllUserJournalEntries":
-                            return (
-                              <View
-                                key={`${m.id}-${i}`}
-                                style={styles.toolInvocation}
-                              >
-                                <MaterialIcons
-                                  name="search"
-                                  size={14}
-                                  color="#666"
-                                />
-                                <Text fontSize="$2" color="$color9" ml="$2">
-                                  Reviewing all journal entries...
-                                </Text>
-                              </View>
-                            );
-                          case "tool-getUserJournalEntries":
-                            return (
-                              <View
-                                key={`${m.id}-${i}`}
-                                style={styles.toolInvocation}
-                              >
-                                <MaterialIcons
-                                  name="search"
-                                  size={14}
-                                  color="#666"
-                                />
-                                <Text fontSize="$2" color="$color9" ml="$2">
-                                  Looking through journal entries...
-                                </Text>
-                              </View>
-                            );
-                          default:
-                            return null;
-                        }
-                      })}
-                    </View>
+                    {m.parts.map((part, i) => {
+                      switch (part.type) {
+                        case "text":
+                          return (
+                            <Markdown
+                              key={`${m.id}-${i}`}
+                              style={{
+                                body: {
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                  fontSize: 16,
+                                  lineHeight: 22,
+                                },
+                                paragraph: {
+                                  marginTop: 0,
+                                  marginBottom: 0,
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                },
+                                strong: {
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                  fontWeight: "bold",
+                                },
+                                em: {
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                  fontStyle: "italic",
+                                },
+                                link: {
+                                  color:
+                                    m.role === "user" ? "#cfe2ff" : "#904BFF",
+                                },
+                                bullet_list: {
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                },
+                                ordered_list: {
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                },
+                                list_item: {
+                                  color:
+                                    m.role === "user" ? "white" : "#1f2937",
+                                },
+                              }}
+                            >
+                              {part.text}
+                            </Markdown>
+                          );
+                        case "tool-getAllUserJournalEntries":
+                          return (
+                            <View
+                              key={`${m.id}-${i}`}
+                              style={styles.toolInvocation}
+                            >
+                              <MaterialIcons
+                                name="search"
+                                size={14}
+                                color="#666"
+                              />
+                              <Text fontSize="$2" color="$color9" ml="$2">
+                                Reviewing all journal entries...
+                              </Text>
+                            </View>
+                          );
+                        case "tool-getUserJournalEntries":
+                          return (
+                            <View
+                              key={`${m.id}-${i}`}
+                              style={styles.toolInvocation}
+                            >
+                              <MaterialIcons
+                                name="search"
+                                size={14}
+                                color="#666"
+                              />
+                              <Text fontSize="$2" color="$color9" ml="$2">
+                                Looking through journal entries...
+                              </Text>
+                            </View>
+                          );
+                        default:
+                          return null;
+                      }
+                    })}
                   </View>
-                ))
-              )}
-            </ScrollView>
+                </View>
+              ))
+            )}
+          </ScrollView>
 
-            <View style={styles.inputContainer}>
-              <View style={styles.inputWrapper}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Type a message..."
-                  placeholderTextColor="#999"
-                  value={input}
-                  onChange={(e) => setInput(e.nativeEvent.text)}
-                  onSubmitEditing={handleSend}
-                  onKeyPress={(e) => {
-                    // CMD+Enter (Mac) or Ctrl+Enter (Windows/Linux) to send
-                    const nativeEvent = e.nativeEvent as {
-                      key?: string;
-                      metaKey?: boolean;
-                      ctrlKey?: boolean;
-                    };
-                    if (
-                      nativeEvent.key === "Enter" &&
-                      (nativeEvent.metaKey || nativeEvent.ctrlKey)
-                    ) {
-                      e.preventDefault();
-                      handleSend();
-                    }
-                  }}
-                  autoFocus={false}
-                  multiline={Platform.OS === "web"}
-                  maxLength={1000}
-                  returnKeyType="send"
-                  blurOnSubmit={Platform.OS !== "web"}
-                />
-                <Button
-                  size="$3"
-                  bg={input.trim() ? "#904BFF" : "#cccccc"}
-                  color="white"
-                  onPress={handleSend}
-                  disabled={!input.trim()}
-                  circular
-                  style={styles.sendButton}
-                  pressStyle={{ scale: 0.95 }}
-                >
-                  ↑
-                </Button>
-              </View>
+          <View style={styles.inputContainer}>
+            <View style={styles.inputWrapper}>
+              <TextInput
+                style={styles.input}
+                placeholder="Type a message..."
+                placeholderTextColor="#999"
+                value={input}
+                onChange={(e) => setInput(e.nativeEvent.text)}
+                onSubmitEditing={handleSend}
+                onKeyPress={(e) => {
+                  // CMD+Enter (Mac) or Ctrl+Enter (Windows/Linux) to send
+                  const nativeEvent = e.nativeEvent as {
+                    key?: string;
+                    metaKey?: boolean;
+                    ctrlKey?: boolean;
+                  };
+                  if (
+                    nativeEvent.key === "Enter" &&
+                    (nativeEvent.metaKey || nativeEvent.ctrlKey)
+                  ) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
+                autoFocus={false}
+                multiline={Platform.OS === "web"}
+                maxLength={1000}
+                returnKeyType="send"
+              />
+              <Button
+                size="$3"
+                bg={input.trim() ? "#904BFF" : "#cccccc"}
+                color="white"
+                onPress={handleSend}
+                disabled={!input.trim()}
+                circular
+                style={styles.sendButton}
+                pressStyle={{ scale: 0.95 }}
+              >
+                ↑
+              </Button>
             </View>
           </View>
-        </KeyboardAvoidingView>
-      </Protect>
+        </View>
+      </KeyboardAvoidingView>
+      {/* </Protect> */}
     </View>
   );
 }

@@ -110,7 +110,7 @@ Remember: Your access to their journal is a powerful tool for providing personal
             // Format entries for the AI to understand
             const formattedEntries = entries.map((entry) => {
               console.log(
-                `Processing entry ${entry._id} from ${entry.createdAt}`
+                `Processing entry ${entry._id} from ${entry.createdAt}`,
               );
 
               // Extract text content from blocks
@@ -139,7 +139,7 @@ Remember: Your access to their journal is a powerful tool for providing personal
             });
 
             console.log(
-              `Successfully formatted ${formattedEntries.length} entries`
+              `Successfully formatted ${formattedEntries.length} entries`,
             );
 
             return {
@@ -163,24 +163,24 @@ Remember: Your access to their journal is a powerful tool for providing personal
           startDate: z
             .string()
             .describe(
-              "Start date in ISO format (YYYY-MM-DD or ISO datetime). Calculate this based on what the user asks (e.g., 'a year ago' would be 365 days before today)."
+              "Start date in ISO format (YYYY-MM-DD or ISO datetime). Calculate this based on what the user asks (e.g., 'a year ago' would be 365 days before today).",
             ),
           endDate: z
             .string()
             .describe(
-              "End date in ISO format (YYYY-MM-DD or ISO datetime). Usually today's date unless the user specifies otherwise."
+              "End date in ISO format (YYYY-MM-DD or ISO datetime). Usually today's date unless the user specifies otherwise.",
             ),
         }),
         execute: async ({ startDate, endDate }) => {
           try {
             console.log(
-              `Fetching journal entries for user ${userId} from ${startDate} to ${endDate}`
+              `Fetching journal entries for user ${userId} from ${startDate} to ${endDate}`,
             );
 
             const entries = await fetchJournalEntriesWithDateRange(
               userId,
               startDate,
-              endDate
+              endDate,
             );
 
             console.log(`Found ${entries.length} journal entries`);

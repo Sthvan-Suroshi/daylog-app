@@ -15,7 +15,10 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { View } from "tamagui";
 
 type JournalEntry = USER_JOURNAL_ENTRIES_QUERYResult[0];
@@ -57,7 +60,7 @@ export default function EntriesScreen() {
 
   // Group entries by date (using UTC to match Sanity timestamps)
   const groupEntriesByDate = (
-    entries: USER_JOURNAL_ENTRIES_QUERYResult
+    entries: USER_JOURNAL_ENTRIES_QUERYResult,
   ): GroupedEntries => {
     return entries.reduce((groups: GroupedEntries, entry) => {
       // Use UTC date components to match the date stored in Sanity
@@ -106,11 +109,11 @@ export default function EntriesScreen() {
   const sortedGroupedEntries = Object.entries(groupedEntries).sort(
     ([dateA], [dateB]) => {
       return new Date(dateB).getTime() - new Date(dateA).getTime();
-    }
+    },
   );
 
   return (
-    <View bg="$background" style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[
@@ -134,7 +137,7 @@ export default function EntriesScreen() {
           const sortedDayEntries = [...dayEntries].sort(
             (a, b) =>
               new Date(b.createdAt ?? new Date()).getTime() -
-              new Date(a.createdAt ?? new Date()).getTime()
+              new Date(a.createdAt ?? new Date()).getTime(),
           );
 
           return (
@@ -167,7 +170,7 @@ export default function EntriesScreen() {
                         <Text style={styles.entryTitle}>
                           {entry.title ??
                             new Date(
-                              entry.createdAt ?? new Date()
+                              entry.createdAt ?? new Date(),
                             ).toLocaleTimeString("en-US", {
                               hour: "2-digit",
                               minute: "2-digit",
@@ -222,7 +225,7 @@ export default function EntriesScreen() {
           );
         })}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -13,10 +13,6 @@ export default function Layout() {
   return (
     <Stack>
       <Stack.Protected guard={isSignedIn}>
-        {/* TODO: Onboarding flow... */}
-        {/* <Stack.Protected guard={!!username}>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack.Protected> */}
 
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
