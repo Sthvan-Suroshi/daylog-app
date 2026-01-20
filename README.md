@@ -17,26 +17,8 @@ Daylog is a comprehensive daily journaling application built with React Native a
 
 Below are screenshots showcasing the app's user interface and functionality:
 
-1. **Sign-In Screen**: Users authenticate with Google to access their journal.
+1. **App Interface Overview**`
 
-   ![Sign-In Screen](assets/Screenshot_2026-01-20-19-59-32-931_host.exp.exponent.jpg)
+   ![App Interface Overview](assets/1.png)
 
-2. **Home Dashboard**: Overview of recent entries, daily prompts, and quick actions.
-
-   ![Home Dashboard](assets/Screenshot_2026-01-20-19-59-53-777_host.exp.exponent.jpg)
-
-3. **Creating a New Entry**: Interface for composing new journal entries with mood selection and categorization.
-
-   ![New Entry](assets/Screenshot_2026-01-20-20-00-22-661_host.exp.exponent.jpg)
-
-4. **Entries List**: Browse and filter all journal entries chronologically.
-
-   ![Entries List](assets/Screenshot_2026-01-20-20-00-27-946_host.exp.exponent.jpg)
-
-5. **AI Chat Interface**: Interactive chat with AI for journaling guidance and conversations.
-
-   ![AI Chat](assets/Screenshot_2026-01-20-20-00-57-969_host.exp.exponent.jpg)
-
-6. **Profile and Settings**: Manage user profile, view streaks, and adjust app preferences.
-
-   ![Profile](assets/Screenshot_2026-01-20-20-01-37-763_host.exp.exponent.jpg)
+   ![Additional Features](assets/2.png)
